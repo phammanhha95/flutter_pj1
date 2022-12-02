@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './transaction.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,7 +35,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Flutter App')),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -46,6 +47,29 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
+          Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Title'),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Amount'),
+                  ),
+                  ElevatedButton(
+                    child: Text(
+                      'Add Transaction',
+                      style: TextStyle(color: Colors.purple),
+                    ),
+                    onPressed: () {},
+                  )
+                ],
+              ),
+            ),
+          ),
           Column(
             children: transactions.map((tx) {
               return Card(
@@ -55,17 +79,29 @@ class MyHomePage extends StatelessWidget {
                       margin:
                           EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 2),
+                        border: Border.all(color: Colors.purple, width: 2),
                       ),
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        tx.amount.toString(),
+                        '\$${tx.amount}',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.purple),
                       ),
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(tx.title),
-                        Text(tx.date.toString())
+                        Text(
+                          tx.title,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
+                        Text(
+                          DateFormat().add_MMMEd().format(tx.date),
+                          textAlign: TextAlign.left,
+                        )
                       ],
                     ),
                   ],
